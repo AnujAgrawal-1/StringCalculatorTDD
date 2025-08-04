@@ -17,5 +17,10 @@ describe('StringCalculator', () => {
       const result = calculator.add('1');
       expect(result).toBe(1);
     });
+
+    it('should return sum for two comma-separated numbers', () => {
+      const result = calculator.add('1,5');
+      expect(result).toBe(6);
+    });
   });
 }); 
