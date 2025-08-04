@@ -22,5 +22,10 @@ describe('StringCalculator', () => {
       const result = calculator.add('1,5');
       expect(result).toBe(6);
     });
+
+    it('should return sum for any amount of numbers', () => {
+      const result = calculator.add('1,2,3,4,5');
+      expect(result).toBe(15);
+    });
   });
 }); 
