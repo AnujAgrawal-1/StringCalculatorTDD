@@ -1,46 +1,143 @@
-# Getting Started with Create React App
+# String Calculator TDD Kata
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project demonstrates the implementation of the String Calculator kata using Test-Driven Development (TDD) principles in TypeScript.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+The String Calculator is a simple class that takes a string of numbers and returns their sum. It supports various input formats and includes comprehensive error handling.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- ✅ Empty string returns 0
+- ✅ Single number returns the number
+- ✅ Two comma-separated numbers return their sum
+- ✅ Any amount of comma-separated numbers return their sum
+- ✅ New lines between numbers are supported (instead of commas)
+- ✅ Custom delimiters are supported (format: `//[delimiter]\n[numbers...]`)
+- ✅ Negative numbers throw an exception with all negative numbers listed
+- ✅ Comprehensive test coverage (100%)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Examples
 
-### `npm test`
+```typescript
+const calculator = new StringCalculator();
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// Basic functionality
+calculator.add('');           // returns 0
+calculator.add('1');          // returns 1
+calculator.add('1,5');        // returns 6
+calculator.add('1,2,3,4,5');  // returns 15
 
-### `npm run build`
+// New lines
+calculator.add('1\n2,3');     // returns 6
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// Custom delimiters
+calculator.add('//;\n1;2');   // returns 3
+calculator.add('//|\n1|2\n3'); // returns 6
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// Error handling
+calculator.add('1,-2,3');     // throws "negative numbers not allowed -2"
+calculator.add('1,-2,-3,4');  // throws "negative numbers not allowed -2,-3"
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## TDD Implementation Steps
 
-### `npm run eject`
+This project was implemented following strict TDD principles with frequent commits showing the evolution of the code:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. **Step 1**: Empty string returns 0
+2. **Step 2**: Single number parsing
+3. **Step 3**: Two comma-separated numbers
+4. **Step 4**: Any amount of numbers
+5. **Step 5**: New lines between numbers
+6. **Step 6**: Custom delimiters
+7. **Step 7**: Negative number validation
+8. **Step 8**: Multiple negative numbers in exception
+9. **Step 9**: Edge cases and refactoring
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+string-calculator-tdd/
+├── src/
+│   └── string-calculator/
+│       └── StringCalculator.ts
+├── src/__tests__/
+│   └── string-calculator/
+│       └── StringCalculator.test.ts
+├── jest.config.js
+├── package.json
+└── README.md
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Getting Started
 
-## Learn More
+### Prerequisites
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Node.js (v14 or higher)
+- npm
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd string-calculator-tdd
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm run test:jest
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:jest -- --coverage
+```
+
+### Running the React App
+
+```bash
+npm start
+```
+
+## Test Coverage
+
+The project achieves 100% test coverage on the StringCalculator class:
+
+```
+File                   | % Stmts | % Branch | % Funcs | % Lines
+-----------------------|---------|----------|---------|---------
+StringCalculator.ts    |     100 |      100 |     100 |     100
+```
+
+## TDD Principles Demonstrated
+
+1. **Red-Green-Refactor Cycle**: Each feature was implemented following the TDD cycle
+2. **Test First**: Tests were written before implementation
+3. **Minimal Implementation**: Only the code necessary to make tests pass was written
+4. **Frequent Commits**: Each step was committed to show the evolution
+5. **Refactoring**: Code was refactored after tests passed to improve maintainability
+
+## Key Learning Points
+
+- **Incremental Development**: Building features step by step
+- **Test Coverage**: Ensuring all code paths are tested
+- **Error Handling**: Proper exception handling with meaningful messages
+- **Code Organization**: Clean separation of concerns with private methods
+- **Regular Expressions**: Using regex for flexible delimiter parsing
+
+## Contributing
+
+This is a kata project demonstrating TDD principles. Feel free to fork and experiment with different approaches or additional features.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
