@@ -32,5 +32,10 @@ describe('StringCalculator', () => {
       const result = calculator.add('1\n2,3');
       expect(result).toBe(6);
     });
+
+    it('should support custom delimiters', () => {
+      const result = calculator.add('//;\n1;2');
+      expect(result).toBe(3);
+    });
   });
 }); 

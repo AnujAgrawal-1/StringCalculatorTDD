@@ -4,7 +4,17 @@ export class StringCalculator {
       return 0;
     }
     
-    const numberArray = numbers.split(/[,\n]/);
+    let delimiter = /[,\n]/;
+    let numbersToProcess = numbers;
+    
+    if (numbers.startsWith('//')) {
+      const delimiterEnd = numbers.indexOf('\n');
+      const customDelimiter = numbers.substring(2, delimiterEnd);
+      delimiter = new RegExp(`[${customDelimiter},\n]`);
+      numbersToProcess = numbers.substring(delimiterEnd + 1);
+    }
+    
+    const numberArray = numbersToProcess.split(delimiter);
     return numberArray.reduce((sum, num) => sum + parseInt(num), 0);
   }
 } 
