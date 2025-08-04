@@ -27,5 +27,10 @@ describe('StringCalculator', () => {
       const result = calculator.add('1,2,3,4,5');
       expect(result).toBe(15);
     });
+
+    it('should handle new lines between numbers', () => {
+      const result = calculator.add('1\n2,3');
+      expect(result).toBe(6);
+    });
   });
 }); 
