@@ -4,6 +4,15 @@ export class StringCalculator {
       return 0;
     }
     
+    const { delimiter, numbersToProcess } = this.parseDelimiter(numbers);
+    const numberArray = this.parseNumbers(numbersToProcess, delimiter);
+    
+    this.validateNoNegativeNumbers(numberArray);
+    
+    return this.sumNumbers(numberArray);
+  }
+
+  private parseDelimiter(numbers: string): { delimiter: RegExp; numbersToProcess: string } {
     let delimiter = /[,\n]/;
     let numbersToProcess = numbers;
     
@@ -14,17 +23,22 @@ export class StringCalculator {
       numbersToProcess = numbers.substring(delimiterEnd + 1);
     }
     
-    const numberArray = numbersToProcess.split(delimiter);
-    
-    // Check for negative numbers
-    const negativeNumbers = numberArray
-      .map(num => parseInt(num))
-      .filter(num => num < 0);
+    return { delimiter, numbersToProcess };
+  }
+
+  private parseNumbers(numbers: string, delimiter: RegExp): number[] {
+    return numbers.split(delimiter).map(num => parseInt(num));
+  }
+
+  private validateNoNegativeNumbers(numbers: number[]): void {
+    const negativeNumbers = numbers.filter(num => num < 0);
     
     if (negativeNumbers.length > 0) {
       throw new Error(`negative numbers not allowed ${negativeNumbers.join(',')}`);
     }
-    
-    return numberArray.reduce((sum, num) => sum + parseInt(num), 0);
+  }
+
+  private sumNumbers(numbers: number[]): number {
+    return numbers.reduce((sum, num) => sum + num, 0);
   }
 } 

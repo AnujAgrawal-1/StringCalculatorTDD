@@ -45,5 +45,20 @@ describe('StringCalculator', () => {
     it('should show all negative numbers in exception message', () => {
       expect(() => calculator.add('1,-2,-3,4')).toThrow('negative numbers not allowed -2,-3');
     });
+
+    it('should handle larger numbers', () => {
+      const result = calculator.add('100,200,300');
+      expect(result).toBe(600);
+    });
+
+    it('should handle zero values', () => {
+      const result = calculator.add('0,1,0,2');
+      expect(result).toBe(3);
+    });
+
+    it('should handle complex custom delimiter with new lines', () => {
+      const result = calculator.add('//|\n1|2\n3');
+      expect(result).toBe(6);
+    });
   });
 }); 
