@@ -37,5 +37,9 @@ describe('StringCalculator', () => {
       const result = calculator.add('//;\n1;2');
       expect(result).toBe(3);
     });
+
+    it('should throw exception for negative numbers', () => {
+      expect(() => calculator.add('1,-2,3')).toThrow('negative numbers not allowed -2');
+    });
   });
 }); 
